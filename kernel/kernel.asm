@@ -36,6 +36,11 @@ org 0x7C00   ; add 0x7C00 to label addresses
    call strcmp
    jc .phex
  
+   mov si, buffer
+   mov di, cmd_help2  ; "help_advanced" command
+   call strcmp
+   jc .help2
+ 
    mov si,badcommand
    call print_string 
    jmp mainloop  
@@ -52,8 +57,21 @@ org 0x7C00   ; add 0x7C00 to label addresses
  
    jmp mainloop
  
+  .help2:
+   mov si, msg_helpa1
+   call print_string
+   mov si, msg_helpa2
+   call print_string
+   mov si, msg_helpa3
+   call print_string
+   mov si, msg_helpa4
+   call print_string
+   mov si, msg_helpa4
+   call print_string
+   
+   jmp mainloop
+ 
   .phex:
-
    call print_hex_byte
  
    jmp mainloop
@@ -66,7 +84,13 @@ org 0x7C00   ; add 0x7C00 to label addresses
  cmd_hi db 'hi', 0
  cmd_help db 'help', 0
  cmd_phex db 'phex', 0
- msg_help db 'My OS: Commands: hi, help, phex', 0x0D, 0x0A, 0
+ cmd_help2 db 'help_advanced', 0
+ msg_help db 'Commands: hi, help, phex, help_advanced', 0x0D, 0x0A, 0
+ msg_helpa1 db '||ADVANCED HELP||', 0x0D, 0x0A, 0
+ msg_helpa2 db 'help: Displays a list of commands.', 0x0D, 0x0A, 0
+ msg_helpa3 db 'help_advanced: Displays a list of commands with descriptions.', 0x0D, 0x0A, 0
+ msg_helpa4 db 'hi: Prints a "hello, world" message.', 0x0D, 0x0A, 0
+ msg_helpa5 db 'phex: Prints the contents of the register AL.', 0x0D, 0x0A, 0
  buffer times 64 db 0
  
  ; ================
