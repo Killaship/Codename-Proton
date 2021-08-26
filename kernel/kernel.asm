@@ -47,13 +47,21 @@ org 0x7C00   ; add 0x7C00 to label addresses
  
    jmp mainloop
  
+  .help:
+
+   call print_hex_byte
+ 
+   jmp mainloop
+ 
+ 
  welcome db 'Welcome to Codename Proton 0.0.1.', 0x0D, 0x0A, 0
  msg_helloworld db 'Hello, World!', 0x0D, 0x0A, 0
  badcommand db 'Bad command entered.', 0x0D, 0x0A, 0
  prompt db '>', 0
  cmd_hi db 'hi', 0
  cmd_help db 'help', 0
- msg_help db 'My OS: Commands: hi, help', 0x0D, 0x0A, 0
+ cmd_phex db 'phex', 0
+ msg_help db 'My OS: Commands: hi, help, phex', 0x0D, 0x0A, 0
  buffer times 64 db 0
  
  ; ================
@@ -150,6 +158,30 @@ org 0x7C00   ; add 0x7C00 to label addresses
  .done: 	
    stc  ; equal, set the carry flag
    ret
+ 
+  print_hex_byte: 
+   mov [.temp],al
+   shr al,4
+   cmp al,10
+   sbb al,69h
+   das
+ 
+   mov ah,0Eh
+   int 10h
+ 
+   mov al,[.temp]
+   ror al,4
+   shr al,4
+   cmp al,10
+   sbb al,69h
+   das
+ 
+   mov ah,0Eh
+   int 10h
+ 
+   ret
+ 
+ .temp db 0
  
    times 510-($-$$) db 0
    dw 0AA55h ; some BIOSes require this signature
