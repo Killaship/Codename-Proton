@@ -31,6 +31,11 @@ org 0x7C00   ; add 0x7C00 to label addresses
    call strcmp
    jc .help
  
+   mov si, buffer
+   mov di, cmd_phex  ; "phex" command
+   call strcmp
+   jc .phex
+ 
    mov si,badcommand
    call print_string 
    jmp mainloop  
@@ -47,7 +52,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
  
    jmp mainloop
  
-  .help:
+  .phex:
 
    call print_hex_byte
  
