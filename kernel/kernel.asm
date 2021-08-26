@@ -184,6 +184,12 @@ org 0x7C00   ; add 0x7C00 to label addresses
    mov ah,0Eh
    int 10h
  
+   mov ah, 0x0E
+   mov al, 0x0D
+   int 0x10
+   mov al, 0x0A
+   int 0x10		; newline
+   
    ret
  
  .temp db 0
