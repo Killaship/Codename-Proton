@@ -47,8 +47,8 @@ org 0x7C00   ; add 0x7C00 to label addresses
  
    jmp mainloop
  
- welcome db 'Welcome to My OS!', 0x0D, 0x0A, 0
- msg_helloworld db 'Hello OSDev World!', 0x0D, 0x0A, 0
+ welcome db 'Welcome to Codename Proton 0.0.1.', 0x0D, 0x0A, 0
+ msg_helloworld db 'Hello, World!', 0x0D, 0x0A, 0
  badcommand db 'Bad command entered.', 0x0D, 0x0A, 0
  prompt db '>', 0
  cmd_hi db 'hi', 0
