@@ -105,7 +105,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
    mov byte [di], 0	; delete character
    dec cl		; decrement counter as well
  
-   mov ah, 0x0E
+   mov ah, 0x04
    mov al, 0x08
    int 10h		; backspace on the screen
  
