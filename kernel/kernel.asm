@@ -1,3 +1,4 @@
+
 org 0x7C00   ; add 0x7C00 to label addresses
  bits 16      ; tell the assembler we want 16 bit code
  
@@ -8,10 +9,10 @@ org 0x7C00   ; add 0x7C00 to label addresses
    mov sp, 0x7C00 ; stack grows downwards from 0x7C00
  
 
-
-
 ; TODO: Make code to load ~ 4K from disk and far jump to it.
 
+
+  
 
 
  .temp db 0
