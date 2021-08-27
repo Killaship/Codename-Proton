@@ -68,7 +68,7 @@ dne:
 	mov sp,bp
 	ret
 
-msg db "Booting Successful.,10,13,"Press any key to continue!",10,13,10,13,0
-erro db "Error loading sector.10,13,0
+msg db "Booting Successful.",10,13,"Press any key to continue!",10,13,10,13,0
+erro db "Error loading sector."10,13,0
 times 510 - ($-$$) db 0
 dw 0xaa55
