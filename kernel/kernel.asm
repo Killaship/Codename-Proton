@@ -1,5 +1,12 @@
 
-
+ bits 16      ; tell the assembler we want 16 bit code
+ 
+   mov ax, 0  ; set up segments
+   mov ds, ax
+   mov es, ax
+   mov ss, ax     ; setup stack
+   mov sp, 0x7C00 ; stack grows downwards from 0x7C00
+ 
    mov si, welcome
    call print_string
  
@@ -24,16 +31,6 @@
    call strcmp
    jc .help
  
-   mov si, buffer
-   mov di, cmd_phex  ; "phex" command
-   call strcmp
-   jc .phex
- 
-   mov si, buffer
-   mov di, cmd_help2  ; "help_advanced" command
-   call strcmp
-   jc .help2
- 
    mov si,badcommand
    call print_string 
    jmp mainloop  
@@ -50,40 +47,13 @@
  
    jmp mainloop
  
-  .help2:
-   mov si, msg_helpa1
-   call print_string
-   mov si, msg_helpa2
-   call print_string
-   mov si, msg_helpa3
-   call print_string
-   mov si, msg_helpa4
-   call print_string
-   mov si, msg_helpa4
-   call print_string
-   
-   jmp mainloop
- 
-  .phex:
-   call print_hex_byte
- 
-   jmp mainloop
- 
- 
- welcome db 'Welcome to Codename Proton 0.0.1.', 0x0D, 0x0A, 0
- msg_helloworld db 'Hello, World!', 0x0D, 0x0A, 0
+ welcome db 'Welcome to My OS!', 0x0D, 0x0A, 0
+ msg_helloworld db 'Hello OSDev World!', 0x0D, 0x0A, 0
  badcommand db 'Bad command entered.', 0x0D, 0x0A, 0
  prompt db '>', 0
  cmd_hi db 'hi', 0
  cmd_help db 'help', 0
- cmd_phex db 'phex', 0
- cmd_help2 db 'help_advanced', 0
- msg_help db 'Commands: hi, help, phex, help_advanced', 0x0D, 0x0A, 0
- msg_helpa1 db '||ADVANCED HELP||', 0x0D, 0x0A, 0
- msg_helpa2 db 'help: Displays a list of commands.', 0x0D, 0x0A, 0
- msg_helpa3 db 'help_advanced: Displays a list of commands with descriptions.', 0x0D, 0x0A, 0
- msg_helpa4 db 'hi: Prints a "hello, world" message.', 0x0D, 0x0A, 0
- msg_helpa5 db 'phex: Prints the contents of the register AL.', 0x0D, 0x0A, 0
+ msg_help db 'My OS: Commands: hi, help', 0x0D, 0x0A, 0
  buffer times 64 db 0
  
  ; ================
@@ -180,36 +150,4 @@
  .done: 	
    stc  ; equal, set the carry flag
    ret
- 
-  print_hex_byte: 
-   mov [.temp],al
-   shr al,4
-   cmp al,10
-   sbb al,69h
-   das
- 
-   mov ah,0Eh
-   int 10h
- 
-   mov al,[.temp]
-   ror al,4
-   shr al,4
-   cmp al,10
-   sbb al,69h
-   das
- 
-   mov ah,0Eh
-   int 10h
- 
-   mov ah, 0x0E
-   mov al, 0x0D
-   int 0x10
-   mov al, 0x0A
-   int 0x10		; newline
-   
-   ret
- 
- 
- 
- 
  
