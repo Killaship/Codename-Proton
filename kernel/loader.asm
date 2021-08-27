@@ -1,6 +1,6 @@
   
 %define loc 0x1000
-%define drive 0x80
+%define drive 0x00
 %define os_sect 3
 
 [bits 16]
