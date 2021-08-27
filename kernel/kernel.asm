@@ -5,7 +5,7 @@ org 0x1000
    mov ds, ax
    mov es, ax
    mov ss, ax     ; setup stack
-   mov sp, 0x1000 ; stack grows downwards from 0x7C00
+   mov sp, 0x2000 ; stack grows downwards from 0x7C00
  
    mov si, welcome
    call print_string
