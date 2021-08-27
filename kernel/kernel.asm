@@ -1,11 +1,11 @@
-org 0x1000
- bits 16      ; tell the assembler we want 16 bit code
+org 0
+bits 16      ; tell the assembler we want 16 bit code
  
    mov ax, 0 ; set up segments
    mov ds, ax
    mov es, ax
    mov ss, ax     ; setup stack
-   mov sp, 0x2000 ; stack grows downwards from 0x7C00
+   mov sp, 0x7000 ; stack grows downwards from 0x7000
  
    mov si, welcome
    call print_string
