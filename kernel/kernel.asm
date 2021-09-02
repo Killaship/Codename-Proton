@@ -227,6 +227,7 @@ stage2:
   cls:
     mov ah, 0x03
     int 0x10
+    ret
 
   print_hex_byte: 
    mov [.temp],al
