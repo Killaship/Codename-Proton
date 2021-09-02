@@ -1,175 +1,99 @@
-org 0x7c00
-bits 16
-
-   mov ax, 0 ; set up segments
-   mov ds, ax
-   mov es, ax
-   mov ss, ax     ; setup stack
-   mov sp, 0x7c00 ; stack grows downwards from 0x7c00
-
-mov ah,02h ;When ah=, int13 reads a disk sector
-mov al,2              ;Al is how many sectors to read
-mov ch,0              ;The track to read from
-mov cl,1              ;Sector Id
-mov dh,0              ;Head
-mov dl,0              ;Drive (0 is floppy)
-mov bx,0x1000    ;Es and Bx put together are where to load the program too (see jmp 0x1000:0x00)
-mov es,bx
-mov bx,0x00
-int 13h               ;Int 13 is all functions for disks
-
-jmp 0x1000:0x00
+[bits 16]
+[org 0x7C00]
 
 
-times 510 - ($-$$) db 0
-dw 0xaa55
+xor ax, ax
+cli         ; disable interrupts to update ss:sp atomically (AFAICT, only required for <= 286)
+mov ss, ax
+mov sp, 0x7C00
+sti
+
+    jmp 0x0000:start_16 ; ensure cs == 0x0000
+
+start_16:
+    ; initialise essential segment registers
+    xor ax, ax
+    mov ds, ax
+    mov es, ax
+
+
+; read_sectors_16
+;
+; Reads sectors from disk into memory using BIOS services
+;
+; input:    dl      = drive
+;           ch      = cylinder[7:0]
+;           cl[7:6] = cylinder[9:8]
+;           dh      = head
+;           cl[5:0] = sector (1-63)
+;           es:bx  -> destination
+;           al      = number of sectors
+;
+; output:   cf (0 = success, 1 = failure)
+
+read_sectors_16:
+    pusha
+    mov si, 0x02    ; maximum attempts - 1
+.top:
+    mov ah, 0x02    ; read sectors into memory (int 0x13, ah = 0x02)
+    int 0x13
+    jnc .end        ; exit if read succeeded
+    dec sia          ; decrement remaining attempts
+    jc  .end        ; exit if maximum attempts exceeded
+    xor ah, ah      ; reset disk system (int 0x13, ah = 0x00)
+    int 0x13
+    jnc .top        ; retry if reset succeeded, otherwise exit
+.end:
+    popa
+    retn
+    
+
+
+; print_string_16
+;
+; Prints a string using BIOS services
+;
+; input:    ds:si -> string
+
+print_string_16:
+    pusha
+    mov  ah, 0x0E    ; teletype output (int 0x10, ah = 0x0E)
+    mov  bx, 0x0007  ; bh = page number (0), bl = foreground colour (light grey)
+.print_char:
+    lodsb            ; al = [ds:si]++
+    test al, al
+    jz   .end        ; exit if null-terminator found
+    int  0x10        ; print character
+    jmp  .print_char ; repeat for next character
+.end:
+    popa
+    retn
+
+
+load_sector_2:
+    mov  al, 0x02           
+    mov  bx, 0x7E00         ; destination (might as well load it right after your bootloader)
+    mov  cx, 0x0002         ; cylinder 0, sector 2
+    mov  dl, [BootDrv]      ; boot drive
+    xor  dh, dh             ; head 0
+    call read_sectors_16
+    jnc  .success           ; if carry flag is set, either the disk system wouldn't reset, or we exceeded our maximum attempts and the disk is probably shagged
+    mov  si, read_failure_str
+    call print_string_16
+    jmp halt                ; jump to a hang routine to prevent further execution
+.success:
+    ; do whatever (maybe jmp 0x7E00?)
+    jmp 0x7E00
+
+
+read_failure_str db 'Boot disk read failure!', 13, 10, 0
+
+halt:
+    cli
+    hlt
+    jmp halt
 
 
 
-
-
-
-
-   mov si, welcome
-   call print_string
- 
- mainloop:
-   mov si, prompt
-   call print_string
- 
-   mov di, buffer
-   call get_string
- 
-   mov si, buffer
-   cmp byte [si], 0  ; blank line?
-   je mainloop       ; yes, ignore it
- 
-   mov si, buffer
-   mov di, cmd_hi  ; "hi" command
-   call strcmp
-   jc .helloworld
- 
-   mov si, buffer
-   mov di, cmd_help  ; "help" command
-   call strcmp
-   jc .help
- 
-   mov si,badcommand
-   call print_string 
-   jmp mainloop  
- 
- .helloworld:
-   mov si, msg_helloworld
-   call print_string
- 
-   jmp mainloop
- 
- .help:
-   mov si, msg_help
-   call print_string
- 
-   jmp mainloop
- 
- welcome db 'Welcome to My OS!', 0x0D, 0x0A, 0
- msg_helloworld db 'Hello OSDev World!', 0x0D, 0x0A, 0
- badcommand db 'Bad command entered.', 0x0D, 0x0A, 0
- prompt db '>', 0
- cmd_hi db 'hi', 0
- cmd_help db 'help', 0
- msg_help db 'My OS: Commands: hi, help', 0x0D, 0x0A, 0
- buffer times 64 db 0
- 
- ; ================
- ; calls start here
- ; ================
- 
- print_string:
-   lodsb        ; grab a byte from SI
- 
-   or al, al  ; logical or AL by itself
-   jz .done   ; if the result is zero, get out
- 
-   mov ah, 0x0E
-   int 0x10      ; otherwise, print out the character!
- 
-   jmp print_string
- 
- .done:
-   ret
- 
- get_string:
-   xor cl, cl
- 
- .loop:
-   mov ah, 0
-   int 0x16   ; wait for keypress
- 
-   cmp al, 0x08    ; backspace pressed?
-   je .backspace   ; yes, handle it
- 
-   cmp al, 0x0D  ; enter pressed?
-   je .done      ; yes, we're done
- 
-   cmp cl, 0x3F  ; 63 chars inputted?
-   je .loop      ; yes, only let in backspace and enter
- 
-   mov ah, 0x0E
-   int 0x10      ; print out character
- 
-   stosb  ; put character in buffer
-   inc cl
-   jmp .loop
- 
- .backspace:
-   cmp cl, 0	; beginning of string?
-   je .loop	; yes, ignore the key
- 
-   dec di
-   mov byte [di], 0	; delete character
-   dec cl		; decrement counter as well
- 
-   mov ah, 0x0E
-   mov al, 0x08
-   int 10h		; backspace on the screen
- 
-   mov al, ' '
-   int 10h		; blank character out
- 
-   mov al, 0x08
-   int 10h		; backspace again
- 
-   jmp .loop	; go to the main loop
- 
- .done:
-   mov al, 0	; null terminator
-   stosb
- 
-   mov ah, 0x0E
-   mov al, 0x0D
-   int 0x10
-   mov al, 0x0A
-   int 0x10		; newline
- 
-   ret
- 
- strcmp:
- .loop:
-   mov al, [si]   ; grab a byte from SI
-   mov bl, [di]   ; grab a byte from DI
-   cmp al, bl     ; are they equal?
-   jne .notequal  ; nope, we're done.
- 
-   cmp al, 0  ; are both bytes (they were equal before) null?
-   je .done   ; yes, we're done.
- 
-   inc di     ; increment DI
-   inc si     ; increment SI
-   jmp .loop  ; loop!
- 
- .notequal:
-   clc  ; not equal, clear the carry flag
-   ret
- 
- .done: 	
-   stc  ; equal, set the carry flag
-   ret
+times 510-($-$$) db 0
+dw 0AA55h ; some BIOSes require this signature
