@@ -10,7 +10,7 @@ bits 16
 mov ah,02h ;When ah=, int13 reads a disk sector
 mov al,2              ;Al is how many sectors to read
 mov ch,0              ;The track to read from
-mov cl,2              ;Sector Id
+mov cl,1              ;Sector Id
 mov dh,0              ;Head
 mov dl,0              ;Drive (0 is floppy)
 mov bx,0x1000    ;Es and Bx put together are where to load the program too (see jmp 0x1000:0x00)
