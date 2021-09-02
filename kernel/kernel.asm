@@ -60,7 +60,7 @@ stage2:
    mov si, buffer
    mov di, cmd_wait  ; "wait" cowmmand
    call strcmp
-   jc .wait
+   jc .delay
  
    mov si,badcommand
    call print_string 
@@ -99,7 +99,7 @@ stage2:
   jmp mainloop
  
  
-  .wait:
+  .delay:
   call delay
   jmp mainloop
  
