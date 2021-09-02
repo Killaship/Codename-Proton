@@ -58,7 +58,7 @@ stage2:
    jc .help2
    
    mov si, buffer
-   mov di, cmd_wait  ; "wait" cowmmand
+   mov di, cmd_delay  ; "wait" cowmmand
    call strcmp
    jc .delay
  
@@ -110,7 +110,7 @@ stage2:
  cmd_hi db 'hi', 0
  cmd_help db 'help', 0
  cmd_phex db 'phex', 0
- cmd_wait db 'wait', 0
+ cmd_delay db 'wait', 0
  cmd_help2 db 'help_advanced', 0
  msg_help db 'Commands: hi, help, phex, help_advanced, wait', 0x0D, 0x0A, 0
  msg_helpa1 db '||ADVANCED HELP||', 0x0D, 0x0A, 0
