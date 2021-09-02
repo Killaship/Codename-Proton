@@ -95,15 +95,13 @@ stage2:
     jmp mainloop
  
   .phex:
-    call print_hex_byte
- 
-    jmp mainloop
+  call print_hex_byte
+  jmp mainloop
  
  
   .wait:
-   call delay
- 
-   jmp mainloop
+  call delay
+  jmp mainloop
  
  welcome db 'Welcome to Codename Proton 0.0.1.', 0x0D, 0x0A, 0
  msg_helloworld db 'Hello, World!', 0x0D, 0x0A, 0
