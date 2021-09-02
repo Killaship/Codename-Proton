@@ -56,6 +56,11 @@ stage2:
    mov di, cmd_help2  ; "help_advanced" command
    call strcmp
    jc .help2
+   
+   mov si, buffer
+   mov di, cmd_wait  ; "wait" cowmmand
+   call strcmp
+   jc .wait
  
    mov si,badcommand
    call print_string 
@@ -84,6 +89,8 @@ stage2:
     call print_string
     mov si, msg_helpa5
     call print_string
+    mov si, msg_helpa6
+    call print_string
    
     jmp mainloop
  
@@ -93,6 +100,11 @@ stage2:
    jmp mainloop
  
  
+   .phex:
+   call wait
+ 
+   jmp mainloop
+ 
  welcome db 'Welcome to Codename Proton 0.0.1.', 0x0D, 0x0A, 0
  msg_helloworld db 'Hello, World!', 0x0D, 0x0A, 0
  badcommand db 'Bad command entered.', 0x0D, 0x0A, 0
@@ -100,13 +112,15 @@ stage2:
  cmd_hi db 'hi', 0
  cmd_help db 'help', 0
  cmd_phex db 'phex', 0
+ cmd_phex db 'wait', 0
  cmd_help2 db 'help_advanced', 0
- msg_help db 'Commands: hi, help, phex, help_advanced', 0x0D, 0x0A, 0
+ msg_help db 'Commands: hi, help, phex, help_advanced, wait', 0x0D, 0x0A, 0
  msg_helpa1 db '||ADVANCED HELP||', 0x0D, 0x0A, 0
  msg_helpa2 db 'help: Displays a list of commands.', 0x0D, 0x0A, 0
  msg_helpa3 db 'help_advanced: Displays a list of commands with descriptions.', 0x0D, 0x0A, 0
  msg_helpa4 db 'hi: Prints a "hello, world" message.', 0x0D, 0x0A, 0
  msg_helpa5 db 'phex: Prints the contents of the register AL.', 0x0D, 0x0A, 0
+ msg_helpa6 db 'wait: waits 1 second', 0x0D, 0x0A, 0
  buffer times 64 db 0
  
  ; ================
@@ -203,6 +217,14 @@ stage2:
  .done: 	
    stc  ; equal, set the carry flag
    ret
+ 
+ 
+  wait:
+    mov al, 0
+    mov ah, 86h
+    mov cx, 1
+    mov dx, 2
+    int 15h
  
   print_hex_byte: 
    mov [.temp],al
