@@ -6,7 +6,7 @@ org 0x7C00
 
     ; Load stage 2 to memory.
     mov ah, 0x02
-    mov al, 0x02
+    mov al, 0x04 ; amount of sectors to load
     ; This may not be necessary as many BIOS setup is as an initial state.
     mov dl, 0x00
     mov ch, 0
