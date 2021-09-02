@@ -8,7 +8,7 @@ org 0x7C00
     mov ah, 0x02
     mov al, 1
     ; This may not be necessary as many BIOS setup is as an initial state.
-    mov dl, 0x80
+    mov dl, 0x00
     mov ch, 0
     mov dh, 0
     mov cl, 2
