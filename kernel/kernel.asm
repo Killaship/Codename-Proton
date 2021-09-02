@@ -211,6 +211,7 @@ stage2:
  
 
   print_hex_byte: 
+   mov al, 0xff
    mov [.temp],al
    shr al,4
    cmp al,10
