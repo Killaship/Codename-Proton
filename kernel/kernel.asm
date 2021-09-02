@@ -110,10 +110,10 @@ stage2:
  
 
  
- welcome db 'Welcome to Codename Proton 0.0.1.', 0x0D, 0x0A, 0
+ welcome db 'Welcome to Codename Proton 0.0.1.', 0x0D, 0x0A, 'Enter "help" for a list of commands.', 0x0D, 0x0A, 0
  msg_helloworld db 'Hello, World!', 0x0D, 0x0A, 0
  badcommand db 'Bad command entered.', 0x0D, 0x0A, 0
- prompt db 'kernel@Proton:', 0
+ prompt db 'kernel@Proton: ', 0
  cmd_hi db 'hi', 0
  cmd_help db 'help', 0
  cmd_phex db 'phex', 0
