@@ -1,4 +1,4 @@
-use16
+bits 16
 org 0x7C00
 
     ; For greater portability you should
