@@ -101,7 +101,7 @@ stage2:
  
  
    .wait:
-   call wait
+   call delay
  
    jmp mainloop
  
@@ -219,7 +219,7 @@ stage2:
    ret
  
  
-  wait:
+  delay:
     mov al, 0
     mov ah, 86h
     mov cx, 1
