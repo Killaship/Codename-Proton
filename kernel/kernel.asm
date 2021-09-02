@@ -58,16 +58,12 @@ stage2:
    jc .help2
    
    mov si, buffer
-   mov di, cmd_cls  ; "help_advanced" command
+   mov di, cmd_cls  ; "cls" command
    call strcmp
    jc .cls
    
    
-   mov si, buffer
-   mov di, cmd_delay  ; "wait" cowmmand
-   call strcmp
-   jc .delay
- 
+
    mov si,badcommand
    call print_string 
    jmp mainloop  
