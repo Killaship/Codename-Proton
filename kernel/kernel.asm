@@ -82,7 +82,7 @@ stage2:
     call print_string
     mov si, msg_helpa4
     call print_string
-    mov si, msg_helpa4
+    mov si, msg_helpa5
     call print_string
    
     jmp mainloop
