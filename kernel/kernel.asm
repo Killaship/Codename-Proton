@@ -23,6 +23,7 @@ org 0x7C00
 
 stage2:
 
+   call cls
    mov si, welcome
    call print_string
  
