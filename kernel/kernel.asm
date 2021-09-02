@@ -100,7 +100,7 @@ stage2:
    jmp mainloop
  
  
-   .phex:
+   .wait:
    call wait
  
    jmp mainloop
