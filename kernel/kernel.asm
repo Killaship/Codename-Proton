@@ -225,7 +225,7 @@ stage2:
  
 
   cls:
-    mov ah, 0
+    mov ah, 2
     int 0x10
 
   print_hex_byte: 
