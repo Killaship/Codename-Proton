@@ -1,12 +1,35 @@
-org 0
-bits 16      ; tell the assembler we want 16 bit code
- 
+org 0x7c00
+bits 16
+
    mov ax, 0 ; set up segments
    mov ds, ax
    mov es, ax
    mov ss, ax     ; setup stack
-   mov sp, 0x7000 ; stack grows downwards from 0x7000
- 
+   mov sp, 0x7c00 ; stack grows downwards from 0x7c00
+
+mov ah,02h ;When ah=, int13 reads a disk sector
+mov al,2              ;Al is how many sectors to read
+mov ch,0              ;The track to read from
+mov cl,2              ;Sector Id
+mov dh,0              ;Head
+mov dl,0              ;Drive (0 is floppy)
+mov bx,0x1000    ;Es and Bx put together are where to load the program too (see jmp 0x1000:0x00)
+mov es,bx
+mov bx,0x00
+int 13h               ;Int 13 is all functions for disks
+
+jmp 0x1000:0x00
+
+
+times 510 - ($-$$) db 0
+dw 0xaa55
+
+
+
+
+
+
+
    mov si, welcome
    call print_string
  
@@ -150,4 +173,3 @@ bits 16      ; tell the assembler we want 16 bit code
  .done: 	
    stc  ; equal, set the carry flag
    ret
- 
