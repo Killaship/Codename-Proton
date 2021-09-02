@@ -232,4 +232,4 @@ stage2:
    
    ret
 
-  
+  .temp db 0
