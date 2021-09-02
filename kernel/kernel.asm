@@ -112,7 +112,7 @@ stage2:
  cmd_hi db 'hi', 0
  cmd_help db 'help', 0
  cmd_phex db 'phex', 0
- cmd_phex db 'wait', 0
+ cmd_wait db 'wait', 0
  cmd_help2 db 'help_advanced', 0
  msg_help db 'Commands: hi, help, phex, help_advanced, wait', 0x0D, 0x0A, 0
  msg_helpa1 db '||ADVANCED HELP||', 0x0D, 0x0A, 0
