@@ -74,18 +74,18 @@ stage2:
    jmp mainloop
  
   .help2:
-   mov si, msg_helpa1
-   call print_string
-   mov si, msg_helpa2
-   call print_string
-   mov si, msg_helpa3
-   call print_string
-   mov si, msg_helpa4
-   call print_string
-   mov si, msg_helpa4
-   call print_string
+    mov si, msg_helpa1
+    call print_string
+    mov si, msg_helpa2
+    call print_string
+    mov si, msg_helpa3
+    call print_string
+    mov si, msg_helpa4
+    call print_string
+    mov si, msg_helpa4
+    call print_string
    
-   jmp mainloop
+    jmp mainloop
  
   .phex:
    call print_hex_byte
