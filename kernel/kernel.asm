@@ -242,8 +242,8 @@ stage2:
  sleep:
     mov al, 0
     mov ah, 86h
-    mov cx, 0x03e8
-    mov dx, 0x0001
+    mov cx, 1
+    mov dx, 2
     int 15h
     ret
  
