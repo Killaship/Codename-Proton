@@ -243,7 +243,7 @@ stage2:
     mov al, 0
     mov ah, 86h
     mov cx, 0x001e
-    mov dx, 0x2120
+    mov dx, 0x0000  ;0x2120
     int 15h
     ret
  
