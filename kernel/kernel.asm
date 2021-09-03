@@ -62,13 +62,6 @@ stage2:
    mov di, cmd_cls  ; "cls" command
    call strcmp
    jc .cls
-   
-   
-   mov si, buffer
-   mov di, cmd_sleep  ; "cls" command
-   call strcmp
-   jc .sleep
-   
 
    mov si,badcommand
    call print_string 
@@ -110,8 +103,7 @@ stage2:
     call print_string
     mov si, msg_helpa6
     call print_string
-    mov si, msg_helpa7
-    call print_string
+
    
     jmp mainloop
  
@@ -130,16 +122,14 @@ stage2:
  cmd_help db 'help', 0
  cmd_phex db 'phex', 0
  cmd_cls db 'cls', 0
- cmd_sleep db 'sleep', 0
  cmd_help2 db 'help_advanced', 0
- msg_help db 'Commands: hi, help, phex, help_advanced, cls, sleep', 0x0D, 0x0A, 0
+ msg_help db 'Commands: hi, help, phex, help_advanced, cls', 0x0D, 0x0A, 0
  msg_helpa1 db '||ADVANCED HELP||', 0x0D, 0x0A, 0
  msg_helpa2 db 'help: Displays a list of commands.', 0x0D, 0x0A, 0
  msg_helpa3 db 'help_advanced: Displays a list of commands with descriptions.', 0x0D, 0x0A, 0
  msg_helpa4 db 'hi: Prints a "hello, world" message.', 0x0D, 0x0A, 0
  msg_helpa5 db 'phex: Prints the contents of the register AL.', 0x0D, 0x0A, 0
  msg_helpa6 db 'cls: Clears the screen.', 0x0D, 0x0A, 0
- msg_helpa7 db 'sleep: Waits 1 second.', 0x0D, 0x0A, 0
  buffer times 64 db 0
  
  ; ================
@@ -239,14 +229,7 @@ stage2:
  
  
  
- sleep:
-    mov al, 0
-    mov ah, 86h
-    mov cx, 0x001e
-    mov dx, 0x0000  ;0x2120
-    int 15h
-    ret
- 
+
 
   cls:
     mov ah, 0x00
