@@ -72,12 +72,7 @@ stage2:
    call print_string
  
    jmp mainloop
- 
- .sleep:
-    call sleep
-    
-    jmp mainloop
- 
+
  
  .cls:
    call cls
