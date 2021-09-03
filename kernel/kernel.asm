@@ -110,6 +110,8 @@ stage2:
     call print_string
     mov si, msg_helpa6
     call print_string
+    mov si, msg_helpa7
+    call print_string
    
     jmp mainloop
  
@@ -137,7 +139,7 @@ stage2:
  msg_helpa4 db 'hi: Prints a "hello, world" message.', 0x0D, 0x0A, 0
  msg_helpa5 db 'phex: Prints the contents of the register AL.', 0x0D, 0x0A, 0
  msg_helpa6 db 'cls: Clears the screen.', 0x0D, 0x0A, 0
- msg_helpa6 db 'sleep: Waits 1 second.', 0x0D, 0x0A, 0
+ msg_helpa7 db 'sleep: Waits 1 second.', 0x0D, 0x0A, 0
  buffer times 64 db 0
  
  ; ================
