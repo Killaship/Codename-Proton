@@ -62,6 +62,11 @@ stage2:
    mov di, cmd_cls  ; "cls" command
    call strcmp
    jc .cls
+   
+   mov si, buffer
+   mov di, cmd_reg  ; "cls" command
+   call strcmp
+   jc .reg  
 
    mov si,badcommand
    call print_string 
@@ -82,7 +87,10 @@ stage2:
  .help:
    mov si, msg_help
    call print_string
- 
+   
+ .reg:
+   mov si, msg_reg
+   call reg
    jmp mainloop
  
   .help2:
@@ -97,6 +105,8 @@ stage2:
     mov si, msg_helpa5
     call print_string
     mov si, msg_helpa6
+    call print_string
+    mov si, msg_helpa7
     call print_string
 
    
@@ -117,14 +127,16 @@ stage2:
  cmd_help db 'help', 0
  cmd_phex db 'phex', 0
  cmd_cls db 'cls', 0
+ cmd_reg db 'reg', 0
  cmd_help2 db 'help_advanced', 0
- msg_help db 'Commands: hi, help, phex, help_advanced, cls', 0x0D, 0x0A, 0
+ msg_help db 'Commands: hi, help, phex, help_advanced, cls, reg', 0x0D, 0x0A, 0
  msg_helpa1 db '||ADVANCED HELP||', 0x0D, 0x0A, 0
  msg_helpa2 db 'help: Displays a list of commands.', 0x0D, 0x0A, 0
  msg_helpa3 db 'help_advanced: Displays a list of commands with descriptions.', 0x0D, 0x0A, 0
  msg_helpa4 db 'hi: Prints a "hello, world" message.', 0x0D, 0x0A, 0
  msg_helpa5 db 'phex: Prints the contents of the register AL.', 0x0D, 0x0A, 0
  msg_helpa6 db 'cls: Clears the screen.', 0x0D, 0x0A, 0
+ msg_helpa7 db 'reg: Dumps registers.', 0x0D, 0x0A, 0
  buffer times 64 db 0
  
  ; ================
@@ -261,3 +273,133 @@ stage2:
    ret
 
   .temp db 0
+
+
+reg:
+push axx
+push ax
+call tohex
+
+push bxx
+push bx
+call tohex
+
+push cxx
+push cx
+call tohex
+
+push dxx
+push dx
+call tohex
+
+push css
+push cs
+call tohex
+
+push dss
+push ds
+call tohex
+
+push sss
+push ss
+call tohex
+
+push ess
+push es
+call tohex
+
+push spp
+push sp
+call tohex
+
+push sii
+push si
+call tohex
+
+push dii
+push di
+call tohex
+
+push gss
+push gs
+call tohex
+
+
+push fss
+push fs
+call tohex
+
+
+ret
+
+
+abc:  ;print a zero terminated string
+        pusha
+        mov bp,sp
+        mov si,[bp+18]
+        cont:
+                lodsb
+                or al,al
+                jz dne
+                mov ah,0x0e
+                mov bx,0
+                mov bl,7
+                int 10h
+                jmp cont
+        dne:
+                mov sp,bp
+                popa
+                ret
+
+
+
+
+tohex:
+        pusha
+        mov bp,sp
+        mov dx, [bp+20]
+        push dx
+        call abc
+        mov dx,[bp+18]
+
+        mov cx,4
+        mov si,hexc
+        mov di,hex+2
+
+        stor:
+
+        rol dx,4
+        mov bx,15
+        and bx,dx
+        mov al, [si+bx]
+        stosb
+        loop stor
+        push hex
+        call abc
+        mov sp,bp
+        popa
+        ret
+        
+hex db "0x0000",10,13,0
+hexc db "0123456789ABCDEF"
+testt db "hello",10,13,0
+css db "CS: ",0
+dss db "DS: ",0
+sss db "SS: ",0
+ess db "ES: ",0
+gss db "GS: ",0
+fss db "FS: ",0
+axx db "AX: ",0
+bxx db "BX: ",0
+cxx db "CX: ",0
+dxx db "DX: ",0
+spp db "SP: ",0
+bpp db "BP: ",0
+sii db "SI: ",0
+dii db "DI: ",0
+
+
+
+
+
+
