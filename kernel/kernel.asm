@@ -89,7 +89,6 @@ stage2:
    call print_string
    
  .reg:
-   mov si, msg_reg
    call reg
    jmp mainloop
  
