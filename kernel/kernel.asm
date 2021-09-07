@@ -1,6 +1,13 @@
 bits 16
 org 0x7C00
 
+
+    push ax
+    mov ax,cs
+    mov ds,ax
+    mov es,ax
+    pop ax
+
     ; For greater portability you should
     ; do further initializations here like setup the stack and segments. 
 
