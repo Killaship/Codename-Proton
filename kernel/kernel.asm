@@ -275,61 +275,61 @@ stage2:
 
 
 reg:
-push axx
-push ax
-call tohex
+    push axx
+    push ax
+    call tohex
 
-push bxx
-push bx
-call tohex
+    push bxx
+    push bx
+    call tohex
 
-push cxx
-push cx
-call tohex
+    push cxx
+    push cx
+    call tohex
 
-push dxx
-push dx
-call tohex
+    push dxx
+    push dx
+    call tohex
 
-push css
-push cs
-call tohex
+    push css
+    push cs
+    call tohex
 
-push dss
-push ds
-call tohex
+    push dss
+    push ds
+    call tohex
 
-push sss
-push ss
-call tohex
+    push sss
+    push ss
+    call tohex
 
-push ess
-push es
-call tohex
+    push ess
+    push es
+    call tohex
 
-push spp
-push sp
-call tohex
+    push spp
+    push sp
+    call tohex
 
-push sii
-push si
-call tohex
+    push sii
+    push si
+    call tohex
 
-push dii
-push di
-call tohex
+    push dii
+    push di
+    call tohex
 
-push gss
-push gs
-call tohex
-
-
-push fss
-push fs
-call tohex
+    push gss
+    push gs
+    call tohex
 
 
-ret
+    push fss
+    push fs
+    call tohex
+
+
+    ret
 
 
 abc:  ;print a zero terminated string
