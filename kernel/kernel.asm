@@ -9,12 +9,19 @@ org 0x7C00
 	mov ss,ax	; stack segment initialisation
 	mov sp,ss
 
+
+push ax
+mov ax,cs
+mov ds,ax
+mov es,ax
+pop ax
+
     ; For greater portability you should
     ; do further initializations here like setup the stack and segments. 
 
     ; Load stage 2 to memory.
     mov ah, 0x02
-    mov al, 0x04 ; amount of sectors to load
+    mov al, 0x06 ; amount of sectors to load
     ; This may not be necessary as many BIOS setup is as an initial state.
     mov dl, 0x00
     mov ch, 0
