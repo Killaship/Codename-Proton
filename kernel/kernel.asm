@@ -2,11 +2,12 @@ bits 16
 org 0x7C00
 
 
-    push ax
-    mov ax,cs
-    mov ds,ax
-    mov es,ax
-    pop ax
+ 	mov ax,cs
+	mov ds,ax
+	mov es,ax
+	mov ax,0x7000	
+	mov ss,ax	; stack segment initialisation
+	mov sp,ss
 
     ; For greater portability you should
     ; do further initializations here like setup the stack and segments. 
@@ -71,7 +72,7 @@ stage2:
    jc .cls
    
    mov si, buffer
-   mov di, cmd_reg  ; "cls" command
+   mov di, cmd_reg  ; "reg" command
    call strcmp
    jc .reg  
 
