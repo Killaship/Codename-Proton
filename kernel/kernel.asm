@@ -16,9 +16,32 @@ mov ds,ax
 mov es,ax
 pop ax
 
-   
+    mov ah, 0x01 ; debug stuff
+    mov al, "w"
+    mov dx, 0x00
+    int 0x14
     mov ah, 0x01
-    mov al, "A"
+    mov al, "e"
+    mov dx, 0x00
+    int 0x14
+    mov ah, 0x01
+    mov al, "r"
+    mov dx, 0x00
+    int 0x14
+    mov ah, 0x01
+    mov al, "k"
+    mov dx, 0x00
+    int 0x14
+    mov ah, 0x01
+    mov al, "s"
+    mov dx, 0x00
+    int 0x14
+    mov ah, 0x01
+    mov al, "\"
+    mov dx, 0x00
+    int 0x14
+    mov ah, 0x01
+    mov al, "n"
     mov dx, 0x00
     int 0x14
     
