@@ -1,7 +1,6 @@
 bits 16
 org 0x7C00
 
-int 0x19
 
  	mov ax,cs
 	mov ds,ax
