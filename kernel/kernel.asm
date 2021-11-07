@@ -18,7 +18,10 @@ pop ax
 
     ; For greater portability you should
     ; do further initializations here like setup the stack and segments. 
-
+    mov ah, 0x01
+    mov al, "A"
+    mov dx, 0x01
+    int 0x14
     ; Load stage 2 to memory.
     mov ah, 0x02
     mov al, 0x06 ; amount of sectors to load
