@@ -37,11 +37,11 @@ pop ax
     mov dx, 0x00
     int 0x14
     mov ah, 0x01
-    mov al, "\"
+    mov al, 0x0A
     mov dx, 0x00
     int 0x14
     mov ah, 0x01
-    mov al, "n"
+    mov al, 0x0D
     mov dx, 0x00
     int 0x14
     
