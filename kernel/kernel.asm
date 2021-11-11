@@ -55,6 +55,9 @@ stage2:
    mov di, cmd_hi  ; "hi" command
    call strcmp
    jc .helloworld
+   
+   
+  
  
    mov si, buffer
    mov di, cmd_help  ; "help" command
@@ -99,6 +102,7 @@ stage2:
    call print_string
    jmp mainloop
    
+
  
  
   .help2:
@@ -135,6 +139,7 @@ stage2:
  cmd_phex db 'phex', 0
  cmd_cls db 'cls', 0
  cmd_help2 db 'help_advanced', 0
+ cmd_test db 'test', 0
  msg_help db 'Commands: hi, help, phex, help_advanced, cls', 0x0D, 0x0A, 0
  msg_helpa1 db '||ADVANCED HELP||', 0x0D, 0x0A, 0
  msg_helpa2 db 'help: Displays a list of commands.', 0x0D, 0x0A, 0
