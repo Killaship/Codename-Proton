@@ -16,34 +16,6 @@ mov ds,ax
 mov es,ax
 pop ax
 
-    mov ah, 0x01 ; debug stuff
-    mov al, "w"
-    mov dx, 0x00
-    int 0x14
-    mov ah, 0x01
-    mov al, "e"
-    mov dx, 0x00
-    int 0x14
-    mov ah, 0x01
-    mov al, "r"
-    mov dx, 0x00
-    int 0x14
-    mov ah, 0x01
-    mov al, "k"
-    mov dx, 0x00
-    int 0x14
-    mov ah, 0x01
-    mov al, "s"
-    mov dx, 0x00
-    int 0x14
-    mov ah, 0x01
-    mov al, 0x0A
-    mov dx, 0x00
-    int 0x14
-    mov ah, 0x01
-    mov al, 0x0D
-    mov dx, 0x00
-    int 0x14
     
     ; Load stage 2 to memory.
     mov ah, 0x02
@@ -270,41 +242,4 @@ stage2:
  
  
  
-
-
-  cls:
-    mov ah, 0x00
-    mov al, 0x03
-    int 0x10
-    ret
-
-  print_hex_byte: 
-   mov [.temp],al
-   shr al,4
-   cmp al,10
-   sbb al,69h
-   das
- 
-   mov ah,0Eh
-   int 10h
- 
-   mov al,[.temp]
-   ror al,4
-   shr al,4
-   cmp al,10
-   sbb al,69h
-   das
- 
-   mov ah,0Eh
-   int 10h
- 
-   mov ah, 0x0E
-   mov al, 0x0D
-   int 0x10
-   mov al, 0x0A
-   int 0x10		; newline
-   
-   ret
-
-  .temp db 0
-
+%include "otherfunctions.asm"
