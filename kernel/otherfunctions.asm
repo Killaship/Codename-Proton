@@ -55,3 +55,43 @@ os_string_parse:
 
 	pop si
 	ret
+
+
+
+
+  cls:
+    mov ah, 0x00
+    mov al, 0x03
+    int 0x10
+    ret
+
+  print_hex_byte: 
+   mov [.temp],al
+   shr al,4
+   cmp al,10
+   sbb al,69h
+   das
+ 
+   mov ah,0Eh
+   int 10h
+ 
+   mov al,[.temp]
+   ror al,4
+   shr al,4
+   cmp al,10
+   sbb al,69h
+   das
+ 
+   mov ah,0Eh
+   int 10h
+ 
+   mov ah, 0x0E
+   mov al, 0x0D
+   int 0x10
+   mov al, 0x0A
+   int 0x10		; newline
+   
+   ret
+
+  .temp db 0
+
