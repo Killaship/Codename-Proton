@@ -242,4 +242,4 @@ stage2:
  
  
  
-%include "otherfunctions.asm"
+%include "kernel/otherfunctions.asm"
