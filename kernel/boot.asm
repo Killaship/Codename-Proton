@@ -6,7 +6,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
    mov es, ax
    mov ss, ax     ; setup stack
    mov sp, 0x7C00 ; stack grows downwards from 0x7C00
- 
+   
    mov si, welcome
    call print_string
  
@@ -40,6 +40,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
  .boot:
    mov si, msg_bootm
    call print_string
+   mov byte [drive], 0x00
       .bootloop: ; haha
          mov si, buffer
          cmp byte [si], 0  ; blank line?
@@ -170,7 +171,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
     mov bx, 0x1000 ; where the OS is location'ed
     int 0x13
 
-    jmp stage2
+    jmp 0x1000
  
  
    times 510-($-$$) db 0
