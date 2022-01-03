@@ -66,11 +66,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
         jc boot2    
          
          
-        mov si, buffer
-        mov di, boot_c  ; "boot" command
-        call strcmp
-        mov byte [drive], 0x80
-        call boot2     
+        
         
         
         mov si,badcommand
@@ -89,11 +85,11 @@ org 0x7C00   ; add 0x7C00 to label addresses
  cmd_boot db 'boot', 0
  cmd_help db 'help', 0
  msg_help db 'Commands: boot, help', 0x0D, 0x0A, 0
- msg_bootm db 'Enter 1 to boot from floppy A, 2 for floppy B, and 3 for hard drive 1.', 0x0D, 0x0A, 0 
+ msg_bootm db 'Enter 1 to boot from floppy A, or 2 to boot from floppy B. (HDD support soon!)', 0x0D, 0x0A, 0 
  buffer times 16 db 0 ; why the hell do we need 64 bytes? we need to save precious memory!  
  boot_a db '1'
  boot_b db '2'
- boot_c db '3' 
+
  
  ; ================
  ; calls start here
@@ -192,7 +188,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
  
  boot2: ; this boot routine actually boots
      ; Load stage 2 to memory.
-    mov ah, 0x42
+    mov ah, 0x02
     mov al, 0x06 ; amount of sectors to load
     ; This may not be necessary as many BIOS setup is as an initial state.
     mov dl, [drive]
