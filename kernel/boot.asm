@@ -57,20 +57,20 @@ org 0x7C00   ; add 0x7C00 to label addresses
         mov di, boot_a  ; "boot" command
         call strcmp
         mov [drive], 0x00
-        jc .boot2
+        jc boot2
    
         mov si, buffer
         mov di, boot_b  ; "boot" command
         call strcmp
         mov [drive], 0x01
-        jc .boot2    
+        jc boot2    
          
          
         mov si, buffer
         mov di, boot_c  ; "boot" command
         call strcmp
         mov [drive], 0x80
-        jc .boot2     
+        call boot2     
         
         
         mov si,badcommand
@@ -190,7 +190,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
    stc  ; equal, set the carry flag
    ret
  
- .boot2: ; this boot routine actually boots
+ boot2: ; this boot routine actually boots
      ; Load stage 2 to memory.
     mov ah, 0x02
     mov al, 0x06 ; amount of sectors to load
