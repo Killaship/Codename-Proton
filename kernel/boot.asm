@@ -9,7 +9,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
    
    mov si, welcome
    call print_string
- 
+ drive db 0x00
  mainloop:
    mov si, prompt
    call print_string
