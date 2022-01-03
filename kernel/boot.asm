@@ -40,10 +40,10 @@ org 0x7C00   ; add 0x7C00 to label addresses
  .boot:
    mov si, msg_bootm
    call print_string
-      bootloop: ; haha
+      .bootloop: ; haha
          mov si, buffer
          cmp byte [si], 0  ; blank line?
-         je bootloop ; ignore it then, off to the bit bucket you go, blank line...
+         je .bootloop ; ignore it then, off to the bit bucket you go, blank line...
          
          
  
