@@ -80,7 +80,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
    
  .help:
     mov si, msg_help
-    call print_strin
+    call print_string
     jmp mainloop
  
  welcome db 'ProtonBootShell', 0x0D, 0x0A, 0
