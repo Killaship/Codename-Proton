@@ -167,7 +167,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
     mov ch, 0
     mov dh, 0
     mov cl, 2
-    mov bx, stage2
+    mov bx, 0x1000 ; where the OS is location'ed
     int 0x13
 
     jmp stage2
