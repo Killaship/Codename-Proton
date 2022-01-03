@@ -55,8 +55,8 @@ org 0x7C00   ; add 0x7C00 to label addresses
  
    jmp mainloop
  
- welcome db 'Proton Boot Shell', 0x0D, 0x0A, 0
- badcommand db 'Bad command entered.', 0x0D, 0x0A, 0
+ welcome db 'ProtonBootShell', 0x0D, 0x0A, 0
+ badcommand db 'Bad Cmd!', 0x0D, 0x0A, 0
  prompt db '>', 0
  cmd_boot db 'boot', 0
  cmd_help db 'help', 0
