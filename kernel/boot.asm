@@ -40,20 +40,48 @@ org 0x7C00   ; add 0x7C00 to label addresses
  .boot:
    mov si, msg_bootm
    call print_string
-   mov byte [drive], 0x00
+   mov byte [drive], 0x00 ; default boot choice is floppy A
       .bootloop: ; haha
-         mov si, buffer
-         cmp byte [si], 0  ; blank line?
-         je .bootloop ; ignore it then, off to the bit bucket you go, blank line...
+      
+        mov si, prompt
+        call print_string
+ 
+        mov di, buffer
+        call get_string
+ 
+        mov si, buffer
+        cmp byte [si], 0  ; blank line?
+        je .bootloop ; ignore it then, off to the bit bucket you go, blank line...
+         
+        mov si, buffer
+        mov di, boot_a  ; "boot" command
+        call strcmp
+        mov [drive], 0x00
+        jc .boot2
+   
+        mov si, buffer
+        mov di, boot_b  ; "boot" command
+        call strcmp
+        mov [drive], 0x01
+        jc .boot2    
          
          
+        mov si, buffer
+        mov di, boot_c  ; "boot" command
+        call strcmp
+        mov [drive], 0x80
+        jc .boot2     
+        
+        
+        mov si,badcommand
+        call print_string 
+        jmp .bootloop 
  
    
  .help:
     mov si, msg_help
-    call print_string
- 
-   jmp mainloop
+    call print_strin
+    jmp mainloop
  
  welcome db 'ProtonBootShell', 0x0D, 0x0A, 0
  badcommand db 'Bad Cmd!', 0x0D, 0x0A, 0
@@ -63,6 +91,9 @@ org 0x7C00   ; add 0x7C00 to label addresses
  msg_help db 'Commands: boot, help', 0x0D, 0x0A, 0
  msg_bootm db 'Enter 1 to boot from floppy A, 2 for floppy B, and 3 for hard drive 1.', 0x0D, 0x0A, 0 
  buffer times 16 db 0 ; why the hell do we need 64 bytes? we need to save precious memory!  
+ boot_a db '1', 0
+ boot_b db '2', 0
+ boot_c db '3', 0
  
  ; ================
  ; calls start here
