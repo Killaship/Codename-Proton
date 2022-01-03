@@ -48,10 +48,9 @@ org 0x7C00   ; add 0x7C00 to label addresses
          
  
    jmp mainloop
- 
  .help:
-   mov si, msg_help
-   call print_string
+    mov si, msg_help
+    call print_string
  
    jmp mainloop
  
