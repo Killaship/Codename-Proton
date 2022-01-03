@@ -91,9 +91,9 @@ org 0x7C00   ; add 0x7C00 to label addresses
  msg_help db 'Commands: boot, help', 0x0D, 0x0A, 0
  msg_bootm db 'Enter 1 to boot from floppy A, 2 for floppy B, and 3 for hard drive 1.', 0x0D, 0x0A, 0 
  buffer times 16 db 0 ; why the hell do we need 64 bytes? we need to save precious memory!  
- boot_a db '1', 0
- boot_b db '2', 0
- boot_c db '3', 0
+ boot_a db '1'
+ boot_b db '2'
+ boot_c db '3' 
  
  ; ================
  ; calls start here
