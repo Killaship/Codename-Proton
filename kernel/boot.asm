@@ -56,20 +56,20 @@ org 0x7C00   ; add 0x7C00 to label addresses
         mov si, buffer
         mov di, boot_a  ; "boot" command
         call strcmp
-        mov [drive], 0x00
+        mov byte [drive], 0x00
         jc boot2
    
         mov si, buffer
         mov di, boot_b  ; "boot" command
         call strcmp
-        mov [drive], 0x01
+        mov byte [drive], 0x01
         jc boot2    
          
          
         mov si, buffer
         mov di, boot_c  ; "boot" command
         call strcmp
-        mov [drive], 0x80
+        mov byte [drive], 0x80
         call boot2     
         
         
