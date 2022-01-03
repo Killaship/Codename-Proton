@@ -9,7 +9,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
    
    mov si, welcome
    call print_string
- drive db 0x00
+ drive db 0x01
  mainloop:
    mov si, prompt
    call print_string
@@ -40,7 +40,7 @@ org 0x7C00   ; add 0x7C00 to label addresses
  .boot:
    mov si, msg_bootm
    call print_string
-   mov byte [drive], 0x00 ; default boot choice is floppy A
+   mov byte [drive], 0x01 ; default boot choice is floppy B
       .bootloop: ; haha
       
         mov si, prompt
