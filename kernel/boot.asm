@@ -31,6 +31,8 @@ org 0x7C00   ; add 0x7C00 to label addresses
    call strcmp
    jc .help
  
+ 
+ 
    mov si,badcommand
    call print_string 
    jmp mainloop  
