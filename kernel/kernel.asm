@@ -81,7 +81,8 @@ start:
  .exit:
    cli
    hlt
-   jmp $ ; This is a debug command that allows me to stop the VM easily if I'm using -curses on QEMU
+   jmp $ ; This is a debug command that literally just stops the system
+   ; I implemented it originally to exit QEMU while in ncurses, but I found the shortcut to do that, and it didn't work anyways
 
  
  
@@ -110,7 +111,7 @@ start:
  
 
  
- welcome db 'Welcome to Codename Proton 0.0.1.', 0x0D, 0x0A, 'Enter "help" for a list of commands.', 0x0D, 0x0A, 0x0D, 0x0A, 0
+ welcome db 'Welcome to Codename Proton.', 0x0D, 0x0A, 'Enter "help" for a list of commands.', 0x0D, 0x0A, 0x0D, 0x0A, 0
  msg_helloworld db 'Hello, World!', 0x0D, 0x0A, 0
  badcommand db 'Bad command entered.', 0x0D, 0x0A, 0
  prompt db 'kernel@Proton: ', 0
