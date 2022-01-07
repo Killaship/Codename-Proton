@@ -33,6 +33,11 @@ start:
    mov di, cmd_help  ; "help" command
    call strcmp
    jc .help
+   
+   mov si, buffer
+   mov di, cmd_exit  ; "help" command
+   call strcmp
+   jc .exit   
  
    mov si, buffer
    mov di, cmd_phex  ; "phex" command
@@ -72,6 +77,11 @@ start:
    call print_string
    jmp mainloop
    
+   
+ .exit:
+   cli
+   hlt
+   jmp $ ; This is a debug command that allows me to stop the VM easily if I'm using -curses on QEMU
 
  
  
@@ -108,6 +118,7 @@ start:
  cmd_help db 'help', 0
  cmd_phex db 'phex', 0
  cmd_cls db 'cls', 0
+ cmd_exit db 'debug_exit', 0
  cmd_help2 db 'help_advanced', 0
  cmd_test db 'test', 0
  msg_help db 'Commands: hi, help, phex, help_advanced, cls', 0x0D, 0x0A, 0
