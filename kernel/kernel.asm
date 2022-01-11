@@ -54,7 +54,10 @@ start:
    call strcmp
    jc .cls
    
-  
+   mov si, buffer
+   mov di, cmd_reboot ; "cls" command
+   call strcmp
+   jc reboot 
 
    mov si,badcommand
    call print_string 
@@ -99,6 +102,8 @@ start:
     call print_string
     mov si, msg_helpa6
     call print_string
+    mov si, msg_helpa7
+    call print_string    
 
 
    
@@ -122,19 +127,25 @@ start:
  cmd_exit db 'debug_exit', 0
  cmd_help2 db 'help_advanced', 0
  cmd_test db 'test', 0
- msg_help db 'Commands: hi, help, phex, help_advanced, cls', 0x0D, 0x0A, 0
+ msg_help db 'Commands: hi, help, phex, help_advanced, cls,reboot', 0x0D, 0x0A, 0
  msg_helpa1 db '||ADVANCED HELP||', 0x0D, 0x0A, 0
  msg_helpa2 db 'help: Displays a list of commands.', 0x0D, 0x0A, 0
  msg_helpa3 db 'help_advanced: Displays a list of commands with descriptions.', 0x0D, 0x0A, 0
  msg_helpa4 db 'hi: Prints a "hello, world" message.', 0x0D, 0x0A, 0
  msg_helpa5 db 'phex: Prints the contents of the register AL.', 0x0D, 0x0A, 0
  msg_helpa6 db 'cls: Clears the screen.', 0x0D, 0x0A, 0
+ msg_helpa7 db 'reboot: Reboots the computer.', 0x0D, 0x0A, 0
 
  buffer times 64 db 0
  
  ; ================
  ; calls start here
  ; ================
+ 
+reboot:
+    db 0x0ea 
+    dw 0x0000 ; Reset the computer via jumping to the BIOS reset vector
+    dw 0xffff 
  
  print_string:
    lodsb        ; grab a byte from SI
