@@ -124,6 +124,7 @@ start:
  cmd_help db 'help', 0
  cmd_phex db 'phex', 0
  cmd_cls db 'cls', 0
+ cmd_reboot db 'reboot', 0
  cmd_exit db 'debug_exit', 0
  cmd_help2 db 'help_advanced', 0
  cmd_test db 'test', 0
