@@ -6,6 +6,8 @@ Be aware that I rarely update the README, so this may be outdated.
 
 TODO (In order of priority):
 
+Make it so you can "install" the OS to another drive. (read everything off the first ~8 sectors of the install media and copy it?)
+
 Setup a way to reboot/shutdown the computer (Reboot done, shutdown in progress)
 
 Get the time from the RTC
