@@ -95,3 +95,9 @@ os_string_parse:
 
   .temp db 0
 
+
+
+;getcpu:
+;	xor eax, eax
+;	cpuid
+	
