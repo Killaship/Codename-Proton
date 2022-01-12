@@ -27,7 +27,10 @@ start:
    jc .helloworld
    
    
-  
+   mov si, buffer
+   mov di, cmd_install  ; "help" command
+   call strcmp
+   jc .install
  
    mov si, buffer
    mov di, cmd_help  ; "help" command
@@ -103,9 +106,9 @@ start:
     mov si, msg_helpa6
     call print_string
     mov si, msg_helpa7
-    call print_string    
-
-
+    call print_string   
+    mov si, msg_help8
+    call print_string   
    
     jmp mainloop
  
@@ -128,7 +131,8 @@ start:
  cmd_exit db 'debug_exit', 0
  cmd_help2 db 'help_advanced', 0
  cmd_test db 'test', 0
- msg_help db 'Commands: hi, help, phex, help_advanced, cls, reboot', 0x0D, 0x0A, 0
+ cmd_install db 'install', 0
+ msg_help db 'Commands: hi, help, phex, help_advanced, cls, reboot, install', 0x0D, 0x0A, 0
  msg_helpa1 db '||ADVANCED HELP||', 0x0D, 0x0A, 0
  msg_helpa2 db 'help: Displays a list of commands.', 0x0D, 0x0A, 0
  msg_helpa3 db 'help_advanced: Displays a list of commands with descriptions.', 0x0D, 0x0A, 0
@@ -136,6 +140,7 @@ start:
  msg_helpa5 db 'phex: Prints the contents of the register AL.', 0x0D, 0x0A, 0
  msg_helpa6 db 'cls: Clears the screen.', 0x0D, 0x0A, 0
  msg_helpa7 db 'reboot: Reboots the computer.', 0x0D, 0x0A, 0
+ msg_helpa8 db 'install: Installs the OS to hard drive #1.', 0x0D, 0x0A, 0
 
  buffer times 64 db 0
  
@@ -239,6 +244,7 @@ reboot:
    stc  ; equal, set the carry flag
    ret
  
- 
+install:
+   
  
 %include "kernel/otherfunctions.asm"
