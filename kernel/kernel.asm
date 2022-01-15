@@ -107,7 +107,7 @@ start:
     call print_string
     mov si, msg_helpa7
     call print_string   
-    mov si, msg_help8
+    mov si, msg_helpa8
     call print_string   
    
     jmp mainloop
