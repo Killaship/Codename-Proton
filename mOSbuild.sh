@@ -26,7 +26,7 @@ fi
 
 echo ">>> Assembling bootloader..."
 
-nasm -O0 -w+orphan-labels -f bin -o src/boot.bin src/boot.asm || exit
+nasm -O0 -w+orphan-labels -f bin -o kernel/boot.bin kernel/boot.asm || exit
 
 
 echo ">>> Assembling MikeOS kernel..."
@@ -39,14 +39,14 @@ cd ..
 
 echo ">>> Adding bootloader to floppy image..."
 
-dd status=noxfer conv=notrunc if=src/boot.bin of=os.flp || exit
+dd status=noxfer conv=notrunc if=kernel/boot.bin of=os.flp || exit
 
 
 echo ">>> Copying MikeOS kernel..."
 
 rm -rf tmp-loop
 
-mkdir tmp-loop && mount -o loop -t vfat os.flp tmp-loop && cp src/kernel.bin tmp-loop/
+mkdir tmp-loop && mount -o loop -t vfat os.flp tmp-loop && cp kernel/kernel.bin tmp-loop/
 
 
 echo ">>> Unmounting loopback floppy..."
