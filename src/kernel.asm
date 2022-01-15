@@ -8,7 +8,7 @@ bits 16
 	sti				; Restore interrupts
 	mov ax, 2000h			; Set all segments to match where kernel is loaded
 	mov ds, ax			; After this, we don't need to bother with
-	mov es, ax			; segments ever again, as MikeOS and its programs
+	mov es, ax			; segments ever again, as the OS and its programs
 	mov fs, ax			; live entirely in 64K
 	mov gs, ax
 
@@ -46,7 +46,7 @@ start:
    jc .help
    
    mov si, buffer
-   mov di, cmd_exit  ; "help" command
+   mov di, cmd_exit  ; "exit" command
    call strcmp
    jc .exit   
  
