@@ -35,10 +35,10 @@ start:
    jc .helloworld
    
    
-   mov si, buffer
-   mov di, cmd_install  ; "install" command
-   call strcmp
-   jc install
+   ;mov si, buffer
+   ;mov di, cmd_install  ; "install" command
+   ;call strcmp
+   ;jc install
  
    mov si, buffer
    mov di, cmd_help  ; "help" command
@@ -66,7 +66,7 @@ start:
    jc .cls
    
    mov si, buffer
-   mov di, cmd_reboot ; "cls" command
+   mov di, cmd_reboot ; "reboot" command
    call strcmp
    jc reboot 
 
@@ -115,8 +115,8 @@ start:
     call print_string
     mov si, msg_helpa7
     call print_string   
-    mov si, msg_helpa8
-    call print_string   
+   ; mov si, msg_helpa8
+   ; call print_string   
    
     jmp mainloop
  
@@ -149,7 +149,7 @@ start:
  msg_helpa5 db 'phex: Prints the contents of the register AL.', 0x0D, 0x0A, 0
  msg_helpa6 db 'cls: Clears the screen.', 0x0D, 0x0A, 0
  msg_helpa7 db 'reboot: Reboots the computer.', 0x0D, 0x0A, 0
- msg_helpa8 db 'install: Installs the OS to hard drive #1.', 0x0D, 0x0A, 0
+ ;msg_helpa8 db 'install: Installs the OS to hard drive #1.', 0x0D, 0x0A, 0
 
  buffer times 64 db 0
  
@@ -357,7 +357,7 @@ os_string_parse:
 ;	xor eax, eax
 ;	cpuid
 	
-install:
-   mov si, errnotfound
-   call print_string
-   ret
+;install:
+ ;  mov si, errnotfound
+  ; call print_string
+   ;ret
