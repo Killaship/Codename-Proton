@@ -30,4 +30,6 @@ https://wiki.osdev.org/Real_mode_assembly_I for almost all of the initial boot s
 
 https://wiki.osdev.org/Real_Mode https://en.wikipedia.org/wiki/Real_mode for just some research on real mode.
 
+https://github.com/mig-hub/mikeOS/tree/master/source The mikeOS project, for the bootloader, and probably some fat12 read file calls in the future
+
 Many, many visits to Stack Overflow and the OSDev wiki.
