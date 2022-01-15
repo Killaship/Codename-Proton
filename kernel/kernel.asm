@@ -28,9 +28,9 @@ start:
    
    
    mov si, buffer
-   mov di, cmd_install  ; "help" command
+   mov di, cmd_install  ; "install" command
    call strcmp
-   jc .install
+   jc install
  
    mov si, buffer
    mov di, cmd_help  ; "help" command
@@ -123,6 +123,7 @@ start:
  msg_helloworld db 'Hello, World!', 0x0D, 0x0A, 0
  badcommand db 'Bad command entered.', 0x0D, 0x0A, 0
  prompt db 'kernel@Proton: ', 0
+ 404 db '404: Feature not yet implemented', 0x0D, 0x0A, 0
  cmd_hi db 'hi', 0
  cmd_help db 'help', 0
  cmd_phex db 'phex', 0
@@ -245,6 +246,8 @@ reboot:
    ret
  
 install:
-   
+   mov si, 404
+   call print_string
+   ret
  
 %include "kernel/otherfunctions.asm"
