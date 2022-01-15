@@ -131,7 +131,7 @@ start:
  msg_helloworld db 'Hello, World!', 0x0D, 0x0A, 0
  badcommand db 'Bad command entered.', 0x0D, 0x0A, 0
  prompt db 'kernel@Proton: ', 0
- 404err db '404: Feature not yet implemented', 0x0D, 0x0A, 0
+ errnotfound db '404: Feature not yet implemented', 0x0D, 0x0A, 0
  cmd_hi db 'hi', 0
  cmd_help db 'help', 0
  cmd_phex db 'phex', 0
@@ -358,6 +358,6 @@ os_string_parse:
 ;	cpuid
 	
 install:
-   mov si, 404err
+   mov si, errnotfound
    call print_string
    ret
