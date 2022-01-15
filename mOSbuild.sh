@@ -31,7 +31,7 @@ nasm -O0 -w+orphan-labels -f bin -o kernel/boot.bin kernel/boot.asm || exit
 
 echo ">>> Assembling MikeOS kernel..."
 
-cd src
+cd kernel
 nasm -O0 -w+orphan-labels -f bin -o kernel.bin kernel.asm || exit
 cd ..
 
