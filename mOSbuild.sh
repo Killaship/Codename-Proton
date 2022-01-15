@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This script assembles the MikeOS bootloader, kernel and programs
+# This script assembles the bootloader, kernel and programs
 # with NASM, and then creates floppy and CD images (on Linux)
 
 # Only the root user can mount the floppy disk image as a virtual
@@ -18,8 +18,8 @@ fi
 
 if [ ! -e mikeos.flp ]
 then
-	echo ">>> Creating new MikeOS floppy image..."
-	mkdosfs -C mikeos.flp 1440 || exit
+	echo ">>> Creating new OS floppy image..."
+	mkdosfs -C os.flp 1440 || exit
 fi
 
 
@@ -34,14 +34,14 @@ nasm -O0 -w+orphan-labels -f bin -o src/boot.bin src/boot.asm || exit
 
 echo ">>> Adding bootloader to floppy image..."
 
-dd status=noxfer conv=notrunc if=src/boot.bin of=mikeos.flp || exit
+dd status=noxfer conv=notrunc if=src/boot.bin of=os.flp || exit
 
 
-echo ">>> Copying MikeOS kernel..."
+echo ">>> Copying OS kernel..."
 
 rm -rf tmp-loop
 
-mkdir tmp-loop && mount -o loop -t vfat mikeos.flp tmp-loop && cp src/kernel.bin tmp-loop/
+mkdir tmp-loop && mount -o loop -t vfat os.flp tmp-loop && cp src/kernel.bin tmp-loop/
 
 
 echo ">>> Unmounting loopback floppy..."
