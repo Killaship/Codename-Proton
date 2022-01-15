@@ -141,7 +141,7 @@ start:
  cmd_help2 db 'help_advanced', 0
  cmd_test db 'test', 0
  cmd_install db 'install', 0
- msg_help db 'Commands: hi, help, phex, help_advanced, cls, reboot, install', 0x0D, 0x0A, 0
+ msg_help db 'Commands: hi, help, phex, help_advanced, cls, reboot', 0x0D, 0x0A, 0
  msg_helpa1 db '||ADVANCED HELP||', 0x0D, 0x0A, 0
  msg_helpa2 db 'help: Displays a list of commands.', 0x0D, 0x0A, 0
  msg_helpa3 db 'help_advanced: Displays a list of commands with descriptions.', 0x0D, 0x0A, 0
