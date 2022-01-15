@@ -250,4 +250,4 @@ install:
    call print_string
    ret
  
-%include "kernel/otherfunctions.asm"
+%include "otherfunctions.asm"
