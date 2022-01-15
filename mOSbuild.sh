@@ -7,7 +7,7 @@
 # drive (loopback mounting), in order to copy across the files
 
 # (If you need to blank the floppy image: 'mkdosfs disk_images/mikeos.flp')
-
+rm -rf tmp-loop
 
 if test "`whoami`" != "root" ; then
 	echo "You must be logged in as root to build (for loopback mounting)"
@@ -15,23 +15,22 @@ if test "`whoami`" != "root" ; then
 	exit
 fi
 
-rm -rf tmp-loop
 
 if [ ! -e mikeos.flp ]
 then
 	echo ">>> Creating new MikeOS floppy image..."
-	mkdosfs -C os.flp 1440 || exit
+	mkdosfs -C mikeos.flp 1440 || exit
 fi
 
 
 echo ">>> Assembling bootloader..."
 
-nasm -O0 -w+orphan-labels -f bin -o kernel/boot.bin kernel/boot.asm || exit
+nasm -O0 -w+orphan-labels -f bin -o src/boot.bin src/boot.asm || exit
 
 
 echo ">>> Assembling MikeOS kernel..."
 
-cd kernel
+cd src
 nasm -O0 -w+orphan-labels -f bin -o kernel.bin kernel.asm || exit
 cd ..
 
@@ -39,14 +38,14 @@ cd ..
 
 echo ">>> Adding bootloader to floppy image..."
 
-dd status=noxfer conv=notrunc if=kernel/boot.bin of=os.flp || exit
+dd status=noxfer conv=notrunc if=src/boot.bin of=mikeos.flp || exit
 
 
 echo ">>> Copying MikeOS kernel..."
 
 rm -rf tmp-loop
 
-mkdir tmp-loop && mount -o loop -t vfat os.flp tmp-loop && cp kernel/kernel.bin tmp-loop/
+mkdir tmp-loop && mount -o loop -t vfat mikeos.flp tmp-loop && cp src/kernel.bin tmp-loop/
 
 
 echo ">>> Unmounting loopback floppy..."
