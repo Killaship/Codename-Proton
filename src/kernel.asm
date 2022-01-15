@@ -131,7 +131,7 @@ start:
  msg_helloworld db 'Hello, World!', 0x0D, 0x0A, 0
  badcommand db 'Bad command entered.', 0x0D, 0x0A, 0
  prompt db 'kernel@Proton: ', 0
- uhoh db '404: Feature not yet implemented', 0x0D, 0x0A, 0
+ 404err db '404: Feature not yet implemented', 0x0D, 0x0A, 0
  cmd_hi db 'hi', 0
  cmd_help db 'help', 0
  cmd_phex db 'phex', 0
@@ -253,10 +253,7 @@ reboot:
    stc  ; equal, set the carry flag
    ret
  
-install:
-   mov si, uhoh
-   call print_string
-   ret
+
  ; ------------------------------------------------------------------
 ; os_string_parse -- Take string (eg "run foo bar baz") and return
 ; pointers to zero-terminated strings (eg AX = "run", BX = "foo" etc.)
@@ -360,3 +357,7 @@ os_string_parse:
 ;	xor eax, eax
 ;	cpuid
 	
+install:
+   mov si, 404err
+   call print_string
+   ret
