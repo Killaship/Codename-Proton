@@ -6,6 +6,8 @@ Be aware that I rarely update the README, so this may be outdated.
 
 TODO (In order of priority):
 
+Load and run COM executables
+
 Add a filesystem (used mikeOS bootloader to put kernel on FAT12, and then loaded it, so kinda like 1/3 of the way there)
 
 Make it so you can "install" the OS to another drive. (read everything off the first ~8 sectors of the install media and copy it?)
