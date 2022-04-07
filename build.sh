@@ -1,6 +1,6 @@
 git pull
 
-
+rm os.flp
 cd src
 #nasm boot.asm -f bin -o boot.bin
 nasm kernel.asm -f bin -o kernel.bin
