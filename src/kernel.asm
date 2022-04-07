@@ -3,7 +3,7 @@ bits 16
 
 
 	mov ax, 1000h
-	mov cs, ax 			; Set all segments to match where kernel is loaded
+					; Set all segments to match where kernel is loaded
 	mov ds, ax			; After this, we don't need to bother with
 	mov es, ax			; segments ever again, as the OS and its programs
 	mov fs, ax			; live entirely in 64K
