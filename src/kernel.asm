@@ -2,7 +2,7 @@ bits 16
 
 
 
-	mov ax, 1000h
+;	mov ax, 1000h
 					; Set all segments to match where kernel is loaded
 ;	mov ds, ax			; After this, we don't need to bother with
 ;	mov es, ax			; segments ever again, as the OS and its programs
